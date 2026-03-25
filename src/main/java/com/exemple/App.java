@@ -7,6 +7,6 @@ public class App {
     }
 
     public String getMessage() {
-        return "Bonjour, Jenkins !";
+        return "Bonjour, Mono !";
     }
 }
