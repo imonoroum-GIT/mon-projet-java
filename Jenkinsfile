@@ -17,4 +17,10 @@ pipeline {
             }
         }
     }
+
+Post {
+    success {
+        echo "ca fonctionne"
+        archiveArtifacts artifacts: 'target/mon-projet-java-1.0-SNAPSHOT.jar', fingerprint: true
+    }
 }
