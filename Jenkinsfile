@@ -17,13 +17,13 @@ pipeline {
             }
         }
 
-        Stage('Build docker image'){
+        stage('Build docker image'){
             steps {
                 sh 'docker build -t ${IMG} .'
             }
         }
 
-        Stage ('deploiement'){
+        stage ('deploiement'){
             steps {
                 sh 'docker stop ${CT_NAME} ||true'
                 sh 'docker rm ${CT_NAME} || true'
@@ -32,7 +32,7 @@ pipeline {
         }
     }
 
-Post {
+post {
     success {
         echo "ca fonctionne"
         sh 'docker ps | grep ${CT_NAME}'
