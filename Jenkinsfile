@@ -10,6 +10,7 @@ pipeline {
         CT_NAME="mon-projet-java-mono-container"
         URL_NOTIFICATIONS="https://ntfy.sh/xgW6J31eoEDc5PXZ"
         SONAR_PRJ_KEY="projet-monoroum"
+        SONAR_PRJ_NAME="mon-projet-java"
     }
 
     stages {
@@ -25,7 +26,7 @@ pipeline {
                 sh """
                 mvn sonar:sonar \
                 -Dsonar.projectKey=${SONAR_PRJ_KEY}
-                -Dsonar.projectName=${SONAR_PRJ_KEY}
+                -Dsonar.projectName=${SONAR_PRJ_NAME}
                 """
             }
         }
@@ -37,7 +38,7 @@ pipeline {
             }
         }
 
-        stage ('deploiement1'){
+        stage ('deploiement'){
             steps {
                 sh 'docker stop ${CT_NAME} ||true'
                 sh 'docker rm ${CT_NAME} || true'
