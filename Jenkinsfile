@@ -9,15 +9,28 @@ pipeline {
         IMG="mon-projet-java-mono:${env.BUILD_ID}"
         CT_NAME="mon-projet-java-mono-container"
         URL_NOTIFICATIONS="https://ntfy.sh/xgW6J31eoEDc5PXZ"
+        SONAR_PRJ_KEY="projet-monoroum"
     }
 
     stages {
         stage('Compilation de mon projet') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean verify'
             }
         }
 
+        stage('Analyse sonar') {
+            steps {
+            withSonarQubeEnv('SonarCubeSncf') {
+                sh """
+                mvn sonar:sonar \
+                -Dsonar.projectKey=${SONAR_PRJ_KEY}
+                -Dsonar.projectName=${SONAR_PRJ_KEY}
+                """
+            }
+        }
+    }
+        
         stage('Build docker image'){
             steps {
                 sh 'docker build -t ${IMG} .'
