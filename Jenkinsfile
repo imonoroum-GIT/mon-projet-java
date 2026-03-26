@@ -5,15 +5,29 @@ pipeline {
         maven 'M3'
     }
 
+    environment {
+        IMG='mon-projet-java:${env.BUILD_ID}'
+        CT_NAME='mon-projet-java-container"
+    }
+
     stages {
         stage('Compilation') {
             steps {
                 sh 'mvn clean package'
             }
         }
-        stage('execution') {
+
+        Stage('Build docker image'){
             steps {
-                sh 'java -jar target/mon-projet-java-1.0-SNAPSHOT.jar'
+                sh 'docker build -t ${IMG}'
+            }
+        }
+
+        Stage ('deploiement'){
+            steps {
+                sh 'docker stop ${CT_NAME} ||true'
+                sh 'docker rm ${CT_NAME} || true'
+                sh 'docker run -d --name ${CT_NAME} ${IMG}'
             }
         }
     }
@@ -21,6 +35,7 @@ pipeline {
 Post {
     success {
         echo "ca fonctionne"
-        archiveArtifacts artifacts: 'target/mon-projet-java-1.0-SNAPSHOT.jar', fingerprint: true
+        sh 'docker ps | grep ${CT_NAME}'
     }
+}
 }
