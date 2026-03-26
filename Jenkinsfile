@@ -6,8 +6,8 @@ pipeline {
     }
 
     environment {
-        IMG='mon-projet-java-mono:${env.BUILD_ID}'
-        CT_NAME='mon-projet-java-mono-container"
+        IMG="mon-projet-java-mono:${env.BUILD_ID}"
+        CT_NAME="mon-projet-java-mono-container"
     }
 
     stages {
