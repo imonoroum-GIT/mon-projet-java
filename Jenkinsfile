@@ -37,7 +37,7 @@ pipeline {
             }
         }
 
-        stage ('deploiement'){
+        stage ('deploiement1'){
             steps {
                 sh 'docker stop ${CT_NAME} ||true'
                 sh 'docker rm ${CT_NAME} || true'
