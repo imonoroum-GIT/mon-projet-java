@@ -10,7 +10,7 @@ pipeline {
         CT_NAME="mon-projet-java-mono-container"
         URL_NOTIFICATIONS="https://ntfy.sh/xgW6J31eoEDc5PXZ"
         SONAR_PRJ_KEY="projet-monoroum"
-        SONAR_PRJ_NAME="mon-projet-java"
+        SONAR_PRJ_NAME="projet-monoroum"
     }
 
     stages {
@@ -25,8 +25,8 @@ pipeline {
             withSonarQubeEnv('SonarCubeSncf') {
                 sh """
                 mvn sonar:sonar \
-                -Dsonar.projectKey=${SONAR_PRJ_KEY}
-                -Dsonar.projectName=${SONAR_PRJ_NAME}
+                -Dsonar.projectKey=${SONAR_PRJ_KEY} \
+                -Dsonar.projectName=${SONAR_PRJ_KEY}
                 """
             }
         }
