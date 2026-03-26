@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        stage('Compilation') {
+        stage('Compilation de mon projet') {
             steps {
                 sh 'mvn clean package'
             }
